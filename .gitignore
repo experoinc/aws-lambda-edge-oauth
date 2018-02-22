@@ -1,0 +1,8 @@
+.DS_STORE
+*.log
+node_modules
+package.zip
+.idea/**
+.idea/**/
+!.idea/codeStyleSettings.xml
+.yarn-cache

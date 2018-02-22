@@ -1,0 +1,14 @@
+{
+  "name": "cf-trigger-auth0",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jsonwebtoken": "^8.1.1",
+    "lodash.escape": "^4.0.1"
+  },
+  "scripts": {
+    "build": "rm -f package.zip && zip -r package.zip *.pem *.js node_modules"
+  }
+}
