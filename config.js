@@ -11,6 +11,11 @@ const auth0Tenants = {
         AUTH0_CLIENT_ID: "iiNvM0syyAjyVwjg3UTCcEEVE1OzFcxq",
         AUTH0_CLIENT_SECRET: "8C8KA1298vdmadUrb8JKdY_qki2cE9JC0Fr9gAgYQkKBvuNX-iCFR659ilC6Mzmt",
         AUTH0_ALGORITHM: "RS256",
+      },
+      supplychaindemo: {
+        AUTH0_CLIENT_ID: "FG5Q84tgsNOwXQBDGpgl7UCOxedxyOPB",
+        AUTH0_CLIENT_SECRET: "LCfV5slvJBzelJ9By8_oLq_GmWTJ91PcVXvpxmOImzUDLP-ss3-Yk8AokbChf4Cg",
+        AUTH0_ALGORITHM: "RS256",
       }
     }
   }
@@ -25,8 +30,9 @@ function getCertificate(tenant) {
 }
 
 const hostMapping = {
-  "miranda.experolabs.com": {tenant: "experoinc", client: "miranda"},
-  "mirandadocs.experolabs.com": {tenant: "experoinc", client: "miranda"},
+  "miranda.experolabs.com": { tenant: "experoinc", client: "miranda" },
+  "miranda-docs.experolabs.com": { tenant: "experoinc", client: "miranda" },
+  "supplychain-demo.experolabs.com": { tenant: "experoinc", client: "supplychaindemo" },
 };
 
 function getConfig(request) {
