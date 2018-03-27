@@ -6,3 +6,4 @@ package.zip
 .idea/**/
 !.idea/codeStyleSettings.xml
 .yarn-cache
+*.swp
