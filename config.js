@@ -16,6 +16,7 @@ const auth0Tenants = {
         AUTH0_CLIENT_ID: "qeiJKtyx7V526diSZ6LuvtL2peX2MbTv",
         AUTH0_CLIENT_SECRET: "yXlvP163PkaNdjfzqhgK8zGGjSOTllMwk-PIokR2D75uhyw_fdPk1Nq7nJZV_r3c",
         AUTH0_ALGORITHM: "RS256",
+      },
       supplychaindemo: {
         AUTH0_CLIENT_ID: "FG5Q84tgsNOwXQBDGpgl7UCOxedxyOPB",
         AUTH0_CLIENT_SECRET: "LCfV5slvJBzelJ9By8_oLq_GmWTJ91PcVXvpxmOImzUDLP-ss3-Yk8AokbChf4Cg",
