@@ -152,14 +152,17 @@ function requireConfig(config, request, callback) {
 
 exports.handler = function (event, context, callback) {
   const request = event.Records[0].cf.request;
-  const config = getConfig(request);
-
-  if (
-    !requireConfig(config, request, callback) &&
-    !allowPublicPaths(config, request, callback) &&
-    !loginCallback(config, request, callback) &&
-    !redirectIfNotAuthenticated(config, request, callback)) {
-    callback(null, request);
-  }
+  getConfig(request, function (err, config) {
+    if (err) {
+      callback(err, null);
+    }
+    else if (
+      !requireConfig(config, request, callback) &&
+      !allowPublicPaths(config, request, callback) &&
+      !loginCallback(config, request, callback) &&
+      !redirectIfNotAuthenticated(config, request, callback)) {
+      callback(null, request);
+    }
+  });
 };
 
