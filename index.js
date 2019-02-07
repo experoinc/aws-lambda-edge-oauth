@@ -150,8 +150,19 @@ function requireConfig(config, request, callback) {
   }
 }
 
+function requestingConfigFile(request, callback) {
+  if (request.uri.endsWith('auth-config.json')) {
+    callback(null, respond(404, 'File not found'));
+    return true;
+  }
+  return false;
+}
+
 exports.handler = function (event, context, callback) {
   const request = event.Records[0].cf.request;
+  if (requestingConfigFile(request, callback)) {
+    return;
+  }
   getConfigCached(request, function (err, config) {
     if (err) {
       callback(err, null);
