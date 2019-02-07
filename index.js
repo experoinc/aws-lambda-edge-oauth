@@ -3,7 +3,7 @@
 const querystring = require('querystring');
 const https = require("https");
 const jsonwebtoken = require('jsonwebtoken');
-const getConfig = require("./config");
+const getConfigCached = require("./config");
 const {redirect, respond} = require("./helpers");
 
 const PUBLIC_PATHS = [/\/favicons\//];
@@ -152,7 +152,7 @@ function requireConfig(config, request, callback) {
 
 exports.handler = function (event, context, callback) {
   const request = event.Records[0].cf.request;
-  getConfig(request, function (err, config) {
+  getConfigCached(request, function (err, config) {
     if (err) {
       callback(err, null);
     }
