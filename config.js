@@ -1,26 +1,11 @@
-const fs = require("fs");
 const AWS = require('aws-sdk');
 
 const DOMAIN_SUFFIX = '.s3.amazonaws.com';
 
-function getCertificate(config) {
-  if (!config.certificate) {
-    config.certificate = fs.readFileSync(config.certificateFile);
-  }
-
-  return config.certificate;
-}
-
-//configuring the AWS environment
-AWS.config.update({
-  accessKeyId: 'AKIAJOZOF55ZDLHSVAAQ',
-  secretAccessKey: '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'
-});
-
 const s3 = new AWS.S3();
 
 function getConfig(request, callback) {
-  // Assumes that the s3 domain name is of the format `bucketName` + `DOMAIN_SUFFIX`.
+  // Assumes that the s3 domain name is in the format: `bucketName` + `DOMAIN_SUFFIX`.
   const bucketName = request.origin.s3.domainName.substr(0,
     request.origin.s3.domainName.length - DOMAIN_SUFFIX.length)
   //configuring parameters
@@ -35,10 +20,6 @@ function getConfig(request, callback) {
     }
     else {
       const config = data && data.Body && JSON.parse(data.Body.toString());
-      console.log('CONFIG: ', JSON.stringify(config));
-      if (config) {
-        config.getCertificate = () => getCertificate(config);
-      }
       callback(null, config);
     }
   });

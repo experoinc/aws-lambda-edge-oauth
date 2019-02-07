@@ -23,7 +23,7 @@ function parseCookies(headers) {
 
 function validateToken(config, token) {
   try {
-    const decoded = jsonwebtoken.verify(token, config.getCertificate(), {
+    const decoded = jsonwebtoken.verify(token, config.certificate, {
       algorithms: [config.AUTH0_ALGORITHM],
       audience: config.AUTH0_CLIENT_ID,
     });
