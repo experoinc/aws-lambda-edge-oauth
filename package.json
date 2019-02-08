@@ -10,5 +10,8 @@
   },
   "scripts": {
     "build": "rm -f package.zip && zip -r package.zip *.pem *.js node_modules"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.397.0"
   }
 }

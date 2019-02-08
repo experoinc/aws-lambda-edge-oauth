@@ -3,7 +3,7 @@
 const querystring = require('querystring');
 const https = require("https");
 const jsonwebtoken = require('jsonwebtoken');
-const getConfig = require("./config");
+const getConfigCached = require("./config");
 const {redirect, respond} = require("./helpers");
 
 const PUBLIC_PATHS = [/\/favicons\//];
@@ -23,7 +23,7 @@ function parseCookies(headers) {
 
 function validateToken(config, token) {
   try {
-    const decoded = jsonwebtoken.verify(token, config.getCertificate(), {
+    const decoded = jsonwebtoken.verify(token, config.certificate, {
       algorithms: [config.AUTH0_ALGORITHM],
       audience: config.AUTH0_CLIENT_ID,
     });
@@ -152,14 +152,18 @@ function requireConfig(config, request, callback) {
 
 exports.handler = function (event, context, callback) {
   const request = event.Records[0].cf.request;
-  const config = getConfig(request);
-
-  if (
-    !requireConfig(config, request, callback) &&
-    !allowPublicPaths(config, request, callback) &&
-    !loginCallback(config, request, callback) &&
-    !redirectIfNotAuthenticated(config, request, callback)) {
-    callback(null, request);
-  }
+  
+  getConfigCached(request, function (err, config) {
+    if (err) {
+      callback(err, null);
+    }
+    else if (
+      !requireConfig(config, request, callback) &&
+      !allowPublicPaths(config, request, callback) &&
+      !loginCallback(config, request, callback) &&
+      !redirectIfNotAuthenticated(config, request, callback)) {
+      callback(null, request);
+    }
+  });
 };
 
