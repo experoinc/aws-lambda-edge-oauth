@@ -9,9 +9,11 @@
     "lodash.escape": "^4.0.1"
   },
   "scripts": {
-    "build": "rm -f package.zip && zip -r package.zip *.pem *.js node_modules"
+    "prebuild": "rimraf dist && mkdir dist && yarn install --production=true --modules-folder dist/node_modules && cp *.js dist",
+    "build": "rm -f package.zip && cd dist && zip -r ../package.zip ."
   },
   "devDependencies": {
-    "aws-sdk": "^2.397.0"
+    "aws-sdk": "^2.397.0",
+    "rimraf": "^3.0.0"
   }
 }
