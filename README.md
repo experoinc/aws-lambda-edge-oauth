@@ -1,4 +1,4 @@
-Lamnda@Edge function which will protect static websites hosted in S3 and served by Cloudfront.  Visitors to the sites
+Lamda@Edge function which will protect static websites hosted in S3 and served by Cloudfront.  Visitors to the sites
 will be required to authenticate with Auth0 before they can access the site.
 
 [This article](https://www.experoinc.com/post/serverless-authentication) is based upon this code.
@@ -42,9 +42,9 @@ Here is what an auth configuration file looks like:
   "AUTH0_CLIENT_ID": "xlkihjaskjhaskjjh",
   "AUTH0_CLIENT_SECRET": "sdlkjsdlkjsdlkjsdl/kjsd;lklksdjhlksjdh",
   "AUTH0_ALGORITHM": "RS256",
-  "AUTH0_DOMAIN": "experoinc.auth0.com",
-  "AUTH0_HOST": "https://experoinc.auth0.com",
-  "AUTH0_LOGIN_URL": "https://experoinc.auth0.com/login",
+  "AUTH0_DOMAIN": "YOURDOMAIN.auth0.com",
+  "AUTH0_HOST": "https://YOURDOMAIN.auth0.com",
+  "AUTH0_LOGIN_URL": "https://YOURDOMAIN.auth0.com/login",
   "CALLBACK_PATH": "/logincb"
 }
 ```
