@@ -1,4 +1,4 @@
-Lamda@Edge function which will protect static websites hosted in S3 and served by Cloudfront.  Visitors to the sites
+Lambda@Edge function which will protect static websites hosted in S3 and served by Cloudfront.  Visitors to the sites
 will be required to authenticate with Auth0 before they can access the site.
 
 [This article](https://www.experoinc.com/post/serverless-authentication) is based upon this code.
