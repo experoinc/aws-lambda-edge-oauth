@@ -1,24 +1,40 @@
 const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3();
+const secretsManager = new AWS.SecretsManager({region: "us-east-1"});
 const cache = {};
 
 function getConfig(configFileName, callback) {
   //configuring parameters
-  const params = {
-    Bucket: 'auth-config.experoinc.com',
-    Key: configFileName
-  };
+  // const params = {
+  //   Bucket: 'auth-config.experoinc.com',
+  //   Key: configFileName
+  // };
 
-  s3.getObject(params, function (err, data) {
+  // s3.getObject(params, function (err, data) {
+  //   if (err) {
+  //     callback(err, null);
+  //   }
+  //   else {
+  //     const config = data && data.Body && JSON.parse(data.Body.toString());
+  //     callback(null, config);
+  //   }
+  // });
+
+  var params = {
+    SecretId: '<secretsmanager-id>',
+  };
+  
+  secretsmanager.getSecretValue(params, function(err, data) {
     if (err) {
-      callback(err, null);
+      callback(err, err.stack);
     }
     else {
-      const config = data && data.Body && JSON.parse(data.Body.toString());
+      const config = data && data.SecretString && JSON.parse(data.SecretString.toString());
       callback(null, config);
     }
   });
+
 }
 
 function getConfigCached(request, callback) {
