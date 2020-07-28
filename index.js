@@ -3,7 +3,7 @@
 const querystring = require('querystring');
 const https = require("https");
 const jsonwebtoken = require('jsonwebtoken');
-const getConfigCached = require("./config");
+const getConfiguration = require("./config");
 const {redirect, respond} = require("./helpers");
 
 const PUBLIC_PATHS = [/\/favicons\//];
@@ -23,7 +23,8 @@ function parseCookies(headers) {
 
 function validateToken(config, token) {
   try {
-    const decoded = jsonwebtoken.verify(token, config.certificate, {
+    const certificate = config.certificate.replace(/\\n/gm, '\n');
+    const decoded = jsonwebtoken.verify(token, certificate, {
       algorithms: [config.algorithm],
       audience: config.client_id,
     });
@@ -31,6 +32,7 @@ function validateToken(config, token) {
     return true;
   }
   catch (err) {
+    console.error(err);
     return false;
   }
 }
@@ -153,7 +155,7 @@ function requireConfig(config, request, callback) {
 exports.handler = function (event, context, callback) {
   const request = event.Records[0].cf.request;
   
-  getConfigCached(request, function (err, config) {
+  getConfiguration(request, function (err, config) {
     if (err) {
       callback(err, null);
     }
@@ -166,4 +168,3 @@ exports.handler = function (event, context, callback) {
     }
   });
 };
-
