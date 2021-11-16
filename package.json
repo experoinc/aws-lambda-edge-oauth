@@ -13,7 +13,7 @@
     "build": "rm -f package.zip && cd dist && zip -r ../package.zip ."
   },
   "devDependencies": {
-    "aws-sdk": "^2.397.0",
+    "aws-sdk": "^2.814.0",
     "rimraf": "^3.0.0"
   }
 }
