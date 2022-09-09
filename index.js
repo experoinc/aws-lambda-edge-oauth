@@ -25,7 +25,7 @@ function validateToken(config, token) {
   try {
     const decoded = jsonwebtoken.verify(token, config.certificate, {
       algorithms: [config.AUTH0_ALGORITHM],
-      audience: config.AUTH0_CLIENT_ID,
+      audience: config.AUTH0_AUDIENCE,
     });
 
     return true;
@@ -65,6 +65,7 @@ function loginCallback(config, request, callback) {
     client_id: config.AUTH0_CLIENT_ID,
     redirect_uri: `https://${headers.host[0].value}${config.CALLBACK_PATH}`,
     client_secret: config.AUTH0_CLIENT_SECRET,
+    audience: config.AUTH0_AUDIENCE,
     code: params.code,
     grant_type: "authorization_code"
   });
@@ -88,7 +89,7 @@ function loginCallback(config, request, callback) {
     res.on('end', () => {
       try {
         const json = JSON.parse(body);
-        const token = json.id_token;
+        const token = json.access_token;
 
         if (!token) {
           return callback(null, respond(401, "Unauthorized", "Unauthorized", body));
@@ -129,7 +130,7 @@ function redirectIfNotAuthenticated(config, request, callback) {
   const encodedRedirectUrl = encodeURIComponent(request.querystring ? `${request.uri}?${request.querystring}` : request.uri);
   const callbackUrl = `https://${headers.host[0].value}${config.CALLBACK_PATH}?dest=${encodedRedirectUrl}`;
   const encodedCallback = encodeURIComponent(callbackUrl);
-  const redirectUrl = `${config.AUTH0_LOGIN_URL}?client=${config.AUTH0_CLIENT_ID}&redirect_uri=${encodedCallback}`;
+  const redirectUrl = `${config.AUTH0_LOGIN_URL}?client_id=${config.AUTH0_CLIENT_ID}&redirect_uri=${encodedCallback}&audience=${config.AUTH0_AUDIENCE}&&response_type=code&state=${Date.now()}`;
 
   callback(null, redirect(redirectUrl, [{name: "session-token", value: ""}]));
 
