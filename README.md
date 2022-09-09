@@ -42,9 +42,10 @@ Here is what an auth configuration file looks like:
   "AUTH0_CLIENT_ID": "xlkihjaskjhaskjjh",
   "AUTH0_CLIENT_SECRET": "sdlkjsdlkjsdlkjsdl/kjsd;lklksdjhlksjdh",
   "AUTH0_ALGORITHM": "RS256",
+  "AUTH0_AUDIENCE": "YOURAUDIENCE",
   "AUTH0_DOMAIN": "YOURDOMAIN.auth0.com",
   "AUTH0_HOST": "https://YOURDOMAIN.auth0.com",
-  "AUTH0_LOGIN_URL": "https://YOURDOMAIN.auth0.com/login",
+  "AUTH0_LOGIN_URL": "https://YOURDOMAIN.auth0.com/authenticate",
   "CALLBACK_PATH": "/logincb"
 }
 ```
@@ -55,6 +56,7 @@ Here is a description of each field:
 * `AUTH0_CLIENT_ID` - the client id of the Auth0 Applicaton you are using to protect your site.  Get from your Auth0 dashboard
 * `AUTH0_CLIENT_SECRET` - the client secret of the Auth0 Application.
 * `AUTH0_CLIENT_ALGORITHM` - either `"RS256"` or `"HS256"` depending on how your Auth0 application is configured
+* `AUTH0_AUDIENCE` - id of the api audience
 * `AUTH0_DOMAIN` - your Auth0 domain, aka `your-auth0-tenant.auth0.com`
 * `AUTH0_HOST` - the url to your auth0 tenant aka `https://your-auth0-tenant.auth0.com`
 * `AUTH0_LOGIN_URL` - the url to your app's login page
